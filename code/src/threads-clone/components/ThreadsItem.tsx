@@ -12,10 +12,11 @@ const blurhash =
 
 export default function ThreadsItem(thread: Thread): JSX.Element {
   return (
-    <View>
-      <Text>{thread.author.username}</Text>
+    <View style={styles.container}>
+      <PostLeftSide {...thread} />
       {/* Gap: 6 allows space between PostHeading, Text, and Image */}
-      <View style={{ gap: 6 }}>
+      {/* flexShrink prevents content from going out of the screen */}
+      <View style={{ gap: 10, flexShrink: 1 }}>
         <PostHeading
           name={thread.author.name}
           createdAt={thread.createdAt}
@@ -39,7 +40,57 @@ export default function ThreadsItem(thread: Thread): JSX.Element {
   );
 }
 
-// Header Contains the first post
+// Post Left Side
+function PostLeftSide(thread: Thread) {
+  // Grab Current Theme of User's selected Preference
+  const currentTheme = useColorScheme();
+  const borderColor = currentTheme === "light" ? "#00000020" : "#ffffff20";
+
+  return (
+    <View style={{ justifyContent: "space-between" }}>
+      <Image
+        source={thread.author.photo}
+        style={styles.image}
+        placeholder={blurhash}
+        contentFit="cover"
+        transition={500}
+      />
+      {/* The grey line connecting the images on the left side can be changed here */}
+      <View
+        style={{
+          borderWidth: 1,
+          alignSelf: "center",
+          borderColor: borderColor,
+          flexGrow: 1,
+        }}
+      />
+      <View
+        style={{
+          width: 20,
+          alignItems: "center",
+          alignSelf: "center",
+          gap: 3,
+        }}
+      >
+        {/* Loop to show three images total */}
+        {[1, 2, 3].map((index) => (
+          <Image
+            key={index}
+            // @ts-ignore
+            source={thread.replies[index - 1]?.author.photo}
+            // Images are determined and multiplied based off the index position, start at index 0 = 1
+            style={{ width: index * 8, height: index * 8, borderRadius: 15 }}
+            placeholder={blurhash}
+            contentFit="cover"
+            transition={500}
+          />
+        ))}
+      </View>
+    </View>
+  );
+}
+
+// Post Header, Contains the first post
 function PostHeading({
   name,
   createdAt,
