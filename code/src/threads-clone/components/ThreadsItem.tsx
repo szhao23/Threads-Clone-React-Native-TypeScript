@@ -16,12 +16,13 @@ export default function ThreadsItem(thread: Thread): JSX.Element {
           createdAt={thread.createdAt}
           verified={thread.author.verified}
         />
+        <PostFooter replies={thread.repliesCount} likes={thread.likesCount} />
       </View>
     </View>
   );
 }
 
-// Contains the first post
+// Header Contains the first post
 function PostHeading({
   name,
   createdAt,
@@ -37,6 +38,7 @@ function PostHeading({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        flexGrow: 1,
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -50,5 +52,14 @@ function PostHeading({
         <Feather name="more-horizontal" size={14} color="gray" />
       </View>
     </View>
+  );
+}
+
+// Footer
+function PostFooter({ replies, likes }: { replies: number; likes: number }) {
+  return (
+    <Text style={{ color: "gray" }}>
+      {replies} replies · {likes} likes
+    </Text>
   );
 }
