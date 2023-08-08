@@ -14,7 +14,8 @@ export default function ThreadsItem(thread: Thread): JSX.Element {
   return (
     <View>
       <Text>{thread.author.username}</Text>
-      <View>
+      {/* Gap: 6 allows space between PostHeading, Text, and Image */}
+      <View style={{ gap: 6 }}>
         <PostHeading
           name={thread.author.name}
           createdAt={thread.createdAt}
