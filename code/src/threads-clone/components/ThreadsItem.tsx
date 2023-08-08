@@ -1,10 +1,14 @@
 import { Thread } from "../types/threads";
 import * as React from "react";
-import { View, useColorScheme } from "react-native";
+import { View, useColorScheme, StyleSheet } from "react-native";
 import { Text } from "./Themed";
 import { Ionicons, Feather, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { timeAgo } from "../utils/time-ago";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+
+const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 export default function ThreadsItem(thread: Thread): JSX.Element {
   return (
@@ -16,6 +20,17 @@ export default function ThreadsItem(thread: Thread): JSX.Element {
           createdAt={thread.createdAt}
           verified={thread.author.verified}
         />
+        {/* Render Image and Content of the Posts */}
+        <Text>{thread.content}</Text>
+        {thread.image && (
+          <Image
+            source={thread.image}
+            style={{ width: "100%", minHeight: 300, borderRadius: 10 }}
+            placeholder={blurhash}
+            contentFit="cover"
+            transition={200}
+          />
+        )}
         <BottomIcons />
         <PostFooter replies={thread.repliesCount} likes={thread.likesCount} />
       </View>
@@ -79,3 +94,17 @@ function BottomIcons() {
     </View>
   );
 }
+
+// Styling for the container and image
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    gap: 6,
+    paddingBottom: 30,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+});
