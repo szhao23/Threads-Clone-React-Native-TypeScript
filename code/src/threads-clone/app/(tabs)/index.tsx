@@ -6,13 +6,11 @@ import {
   StyleSheet,
 } from "react-native";
 import Lottie from "lottie-react-native";
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
 import { useRef } from "react";
 import * as React from "react";
-import { createRandomUser } from "@/utils/generate-dummy-data";
-import { ThreadsContext } from "@/context/thread-context";
-import ThreadsItem from "@/components/threadsItem";
+import { createRandomUser } from "../../utils/generate-dummy-data";
+import { ThreadsContext } from "../../context/thread-context";
+import ThreadsItem from "../../components/ThreadsItem";
 
 // const user = createRandomUser();
 // console.log(JSON.stringify(user, null, 2));
