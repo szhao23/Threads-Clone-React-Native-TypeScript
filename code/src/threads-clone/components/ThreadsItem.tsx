@@ -32,7 +32,13 @@ function PostHeading({
   verified: boolean;
 }) {
   return (
-    <View>
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <Text style={{ fontWeight: "500" }}>{name}</Text>
         {verified && (
