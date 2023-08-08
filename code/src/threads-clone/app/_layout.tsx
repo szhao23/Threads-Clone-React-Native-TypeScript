@@ -1,3 +1,5 @@
+// Entry Point of Application
+import { ThreadProvider } from "@/context/thread-context";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
@@ -53,11 +55,14 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {/* Entry Point of our Application */}
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
+      {/* Import Context and Provider */}
+      <ThreadProvider>
+        {/* Entry Point of our Application */}
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
+      </ThreadProvider>
     </ThemeProvider>
   );
 }

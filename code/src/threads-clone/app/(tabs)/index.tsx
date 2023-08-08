@@ -10,10 +10,18 @@ import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 import { useRef } from "react";
 import * as React from "react";
+import { createRandomUser } from "@/utils/generate-dummy-data";
+import { ThreadsContext } from "@/context/thread-context";
+import ThreadsItem from "@/components/threadsItem";
+
+// const user = createRandomUser();
+// console.log(JSON.stringify(user, null, 2));
 
 export default function TabOneScreen() {
   // Reference that lets us manipulate animation from anywhere in this component
   const animationRef = React.useRef<Lottie>(null);
+  // Access Data from Context
+  const threads = React.useContext(ThreadsContext);
 
   return (
     <SafeAreaView>
@@ -43,7 +51,14 @@ export default function TabOneScreen() {
           loop={false}
           autoPlay
           style={{ width: 90, height: 90, alignSelf: "center" }}
+          // onAnimationFinish={() => {
+          //   alert("Finished Refresh");
+          // }}
         />
+        {/* After Data is passed from Context, Map through the Data to Display */}
+        {threads.map((thread) => (
+          <ThreadsItem key={thread.id} {...thread} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
